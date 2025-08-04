@@ -16,7 +16,15 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Initialize database
-initializeDatabase();
+initializeDatabase().then((success) => {
+  if (success) {
+    console.log('✅ Database initialized successfully');
+  } else {
+    console.error('❌ Database initialization failed');
+  }
+}).catch((error) => {
+  console.error('❌ Database initialization error:', error);
+});
 
 // Middleware
 app.use(cors());
@@ -28,8 +36,32 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/api/auth', authRoutes);
 app.use('/api/activities', activityRoutes);
 
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'HTML Activities Designer API is running' });
+app.get('/api/health', async (req, res) => {
+  try {
+    // Test database connection
+    const { default: pool } = await import('./config/database.js');
+    await pool.query('SELECT 1');
+    
+    res.json({ 
+      status: 'ok', 
+      message: 'HTML Activities Designer API is running',
+      database: 'connected',
+      environment: process.env.NODE_ENV || 'development',
+      hasJwtSecret: !!process.env.JWT_SECRET,
+      hasDatabaseUrl: !!process.env.DATABASE_URL
+    });
+  } catch (error) {
+    console.error('Health check failed:', error);
+    res.status(500).json({ 
+      status: 'error', 
+      message: 'Health check failed',
+      error: error.message,
+      database: 'disconnected',
+      environment: process.env.NODE_ENV || 'development',
+      hasJwtSecret: !!process.env.JWT_SECRET,
+      hasDatabaseUrl: !!process.env.DATABASE_URL
+    });
+  }
 });
 
 // Serve React app for all other routes
