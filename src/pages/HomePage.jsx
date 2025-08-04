@@ -1,19 +1,42 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 function HomePage() {
   const [message, setMessage] = useState('Loading...')
+  const { isAuthenticated, user } = useAuth()
 
   useEffect(() => {
-    setMessage('Hello World!')
+    setMessage('HTML Activities Designer')
   }, [])
 
   return (
     <div className="home-page">
       <header className="hero-section">
         <h1 className="hero-title">{message}</h1>
-        <p className="hero-subtitle">Welcome to HTML Activities Designer</p>
+        <p className="hero-subtitle">Create and Host Interactive E-Learning Activities</p>
         <div className="hero-description">
-          <p>A powerful tool for creating interactive HTML-based educational activities and learning experiences.</p>
+          <p>Build HTML activities once, host them centrally, and let clients update content dynamically without touching code.</p>
+        </div>
+        
+        <div className="hero-actions">
+          {isAuthenticated ? (
+            <div className="authenticated-actions">
+              <p className="welcome-text">Welcome back, {user?.firstName || user?.username}!</p>
+              <Link to="/dashboard" className="cta-button primary">
+                Go to Dashboard
+              </Link>
+            </div>
+          ) : (
+            <div className="auth-actions">
+              <Link to="/register" className="cta-button primary">
+                Get Started Free
+              </Link>
+              <Link to="/login" className="cta-button secondary">
+                Sign In
+              </Link>
+            </div>
+          )}
         </div>
       </header>
       
