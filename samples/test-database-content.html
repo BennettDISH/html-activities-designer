@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test: Database Fundamentals</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        .activity-info {
+            background: #f1f8e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #689f38;
+        }
+        .embed-code {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 10px 0;
+            border: 1px solid #dee2e6;
+            white-space: pre-wrap;
+        }
+        .instructions {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗄️ Database Fundamentals</h1>
+            <p>Activity Slug: <code>database-fundamentals</code></p>
+        </div>
+
+        <div class="activity-info">
+            <h3>📋 Activity Details</h3>
+            <ul>
+                <li><strong>Title:</strong> Database Fundamentals</li>
+                <li><strong>Slug:</strong> database-fundamentals</li>
+                <li><strong>Type:</strong> Text Content (Educational)</li>
+                <li><strong>Content:</strong> SQL, NoSQL, database design principles</li>
+            </ul>
+        </div>
+
+        <div class="instructions">
+            <h3>🔧 Create This Activity</h3>
+            <ol>
+                <li>Go to your activity builder</li>
+                <li>Choose "Text Content" activity type</li>
+                <li>Copy HTML content from "Database Fundamentals" in <code>samples/sample-activities.json</code></li>
+                <li>Use slug: <code>database-fundamentals</code></li>
+                <li>Set as public and save</li>
+            </ol>
+        </div>
+
+        <h3>📄 How Clients Can Embed</h3>
+        
+        <h4>Simple One-liner</h4>
+        <div class="embed-code">&lt;script src="https://your-domain.railway.app/sdk/activities.js"&gt;&lt;/script&gt;
+&lt;div data-html-activity="database-fundamentals"&gt;&lt;/div&gt;</div>
+
+        <h4>iframe for Maximum Isolation</h4>
+        <div class="embed-code">&lt;iframe src="https://your-domain.railway.app/api/embed/database-fundamentals/render" 
+        width="100%" 
+        height="800px" 
+        frameborder="0" 
+        style="border-radius: 8px;"&gt;&lt;/iframe&gt;</div>
+
+        <h3>🎯 Content Preview</h3>
+        <p><em>This text activity contains comprehensive information about databases, SQL, and data management.</em></p>
+        
+        <div id="database-content" style="border: 2px dashed #ddd; border-radius: 8px; padding: 20px; min-height: 400px;">
+            <div style="text-align: center; color: #666; padding: 60px 20px;">
+                <p>🗄️ Database Fundamentals content will load here...</p>
+                <p style="font-size: 0.9rem;">This will show detailed information about SQL, NoSQL, and database design</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/sdk/activities.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            HTMLActivities.render('database-fundamentals', 'database-content')
+                .catch(function(error) {
+                    document.getElementById('database-content').innerHTML = 
+                        '<div style="text-align: center; color: #dc3545; padding: 60px 20px;">' +
+                        '<h4>🚫 Database Content Not Found</h4>' +
+                        '<p>Create the "Database Fundamentals" text activity first!</p>' +
+                        '<p style="font-size: 0.9rem; color: #666;">This should be a text activity with database learning content</p>' +
+                        '</div>';
+                });
+        });
+    </script>
+</body>
+</html>

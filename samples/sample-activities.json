@@ -1,0 +1,188 @@
+[
+  {
+    "title": "JavaScript Basics Quiz",
+    "slug": "javascript-basics-quiz",
+    "description": "Test your knowledge of JavaScript fundamentals including variables, functions, and control structures.",
+    "contentType": "quiz",
+    "isPublic": true,
+    "contentData": {
+      "type": "quiz",
+      "questions": [
+        {
+          "question": "Which of the following is the correct way to declare a variable in JavaScript?",
+          "options": ["var myVar = 5;", "variable myVar = 5;", "v myVar = 5;", "declare myVar = 5;"],
+          "correct": 0,
+          "explanation": "In JavaScript, variables are declared using 'var', 'let', or 'const' keywords. 'var' is the traditional way to declare variables."
+        },
+        {
+          "question": "What does '===' compare in JavaScript?",
+          "options": ["Only values", "Only types", "Both value and type", "Neither value nor type"],
+          "correct": 2,
+          "explanation": "The '===' operator (strict equality) compares both value and type, while '==' only compares values after type coercion."
+        },
+        {
+          "question": "Which method is used to add an element to the end of an array?",
+          "options": ["append()", "push()", "add()", "insert()"],
+          "correct": 1,
+          "explanation": "The push() method adds one or more elements to the end of an array and returns the new length of the array."
+        },
+        {
+          "question": "What is the result of: typeof null",
+          "options": ["'null'", "'undefined'", "'object'", "'boolean'"],
+          "correct": 2,
+          "explanation": "This is a well-known JavaScript quirk. typeof null returns 'object', which is considered a bug in the language but has been kept for backward compatibility."
+        }
+      ],
+      "settings": {
+        "showExplanations": true,
+        "allowRetry": true,
+        "shuffleQuestions": false
+      }
+    }
+  },
+  {
+    "title": "HTML Fundamentals Quiz",
+    "slug": "html-fundamentals-quiz",
+    "description": "Learn the basics of HTML markup, elements, and document structure.",
+    "contentType": "quiz",
+    "isPublic": true,
+    "contentData": {
+      "type": "quiz",
+      "questions": [
+        {
+          "question": "What does HTML stand for?",
+          "options": ["Hyper Text Markup Language", "High Tech Modern Language", "Home Tool Markup Language", "Hyperlink and Text Markup Language"],
+          "correct": 0,
+          "explanation": "HTML stands for Hyper Text Markup Language. It's the standard markup language for creating web pages."
+        },
+        {
+          "question": "Which HTML element is used for the largest heading?",
+          "options": ["<h6>", "<heading>", "<h1>", "<header>"],
+          "correct": 2,
+          "explanation": "The <h1> element represents the largest heading. HTML provides six heading levels from <h1> (largest) to <h6> (smallest)."
+        },
+        {
+          "question": "What is the correct HTML element for inserting a line break?",
+          "options": ["<lb>", "<break>", "<br>", "<newline>"],
+          "correct": 2,
+          "explanation": "The <br> element produces a line break in text. It's useful for writing addresses or poems where line breaks are significant."
+        },
+        {
+          "question": "Which attribute specifies the URL of the page the link goes to?",
+          "options": ["link", "src", "href", "url"],
+          "correct": 2,
+          "explanation": "The href attribute specifies the URL of the page the link goes to. It's used with the <a> element to create hyperlinks."
+        }
+      ],
+      "settings": {
+        "showExplanations": true,
+        "allowRetry": true,
+        "shuffleQuestions": false
+      }
+    }
+  },
+  {
+    "title": "CSS Styling Essentials",
+    "slug": "css-styling-essentials",
+    "description": "Master CSS selectors, properties, and styling techniques for modern web design.",
+    "contentType": "quiz",
+    "isPublic": true,
+    "contentData": {
+      "type": "quiz",
+      "questions": [
+        {
+          "question": "Which CSS property is used to change the text color of an element?",
+          "options": ["text-color", "font-color", "color", "text-style"],
+          "correct": 2,
+          "explanation": "The 'color' property sets the color of text content and text decorations."
+        },
+        {
+          "question": "What does CSS stand for?",
+          "options": ["Computer Style Sheets", "Creative Style Sheets", "Colorful Style Sheets", "Cascading Style Sheets"],
+          "correct": 3,
+          "explanation": "CSS stands for Cascading Style Sheets. The 'cascading' refers to the way styles cascade down from parent to child elements."
+        },
+        {
+          "question": "Which property is used to change the background color?",
+          "options": ["bgcolor", "background-color", "bg-color", "background"],
+          "correct": 1,
+          "explanation": "The 'background-color' property sets the background color of an element. You can also use the shorthand 'background' property."
+        },
+        {
+          "question": "How do you select an element with id 'header'?",
+          "options": [".header", "#header", "*header", "header"],
+          "correct": 1,
+          "explanation": "The # symbol is used to select elements by their ID. So #header selects the element with id='header'."
+        }
+      ],
+      "settings": {
+        "showExplanations": true,
+        "allowRetry": true,
+        "shuffleQuestions": false
+      }
+    }
+  },
+  {
+    "title": "Web Development Introduction",
+    "slug": "web-development-intro",
+    "description": "A comprehensive introduction to web development concepts, tools, and best practices.",
+    "contentType": "text",
+    "isPublic": true,
+    "contentData": {
+      "type": "text",
+      "content": "<h2>Welcome to Web Development</h2><p>Web development is the process of building and maintaining websites and web applications. It encompasses several different aspects:</p><h3>Front-End Development</h3><p>Front-end development focuses on the user interface and user experience. It involves:</p><ul><li><strong>HTML:</strong> Structure and content of web pages</li><li><strong>CSS:</strong> Styling and layout of web pages</li><li><strong>JavaScript:</strong> Interactive functionality and behavior</li></ul><h3>Back-End Development</h3><p>Back-end development handles server-side logic, databases, and application architecture:</p><ul><li><strong>Server Languages:</strong> Node.js, Python, PHP, Java, etc.</li><li><strong>Databases:</strong> MySQL, PostgreSQL, MongoDB, etc.</li><li><strong>APIs:</strong> RESTful services, GraphQL, etc.</li></ul><h3>Development Tools</h3><p>Modern web development relies on various tools and frameworks:</p><ul><li><strong>Version Control:</strong> Git and GitHub</li><li><strong>Package Managers:</strong> npm, yarn</li><li><strong>Build Tools:</strong> Webpack, Vite, Parcel</li><li><strong>Frameworks:</strong> React, Vue, Angular</li></ul><h3>Best Practices</h3><p>Successful web development follows these principles:</p><ol><li><strong>Responsive Design:</strong> Works on all devices</li><li><strong>Performance:</strong> Fast loading and smooth interactions</li><li><strong>Accessibility:</strong> Usable by everyone</li><li><strong>Security:</strong> Protected against common vulnerabilities</li><li><strong>SEO:</strong> Discoverable by search engines</li></ol><p>This foundation will help you understand the broader context of web development as you dive deeper into specific technologies and frameworks.</p>"
+    }
+  },
+  {
+    "title": "React Development Quiz",
+    "slug": "react-development-quiz",
+    "description": "Test your knowledge of React components, hooks, and modern development patterns.",
+    "contentType": "quiz",
+    "isPublic": true,
+    "contentData": {
+      "type": "quiz",
+      "questions": [
+        {
+          "question": "What is JSX in React?",
+          "options": ["A separate templating language", "JavaScript XML syntax extension", "A CSS framework", "A testing library"],
+          "correct": 1,
+          "explanation": "JSX is a syntax extension for JavaScript that allows you to write HTML-like code in your JavaScript files. It gets transpiled to regular JavaScript function calls."
+        },
+        {
+          "question": "Which hook is used to manage state in functional components?",
+          "options": ["useEffect", "useState", "useContext", "useReducer"],
+          "correct": 1,
+          "explanation": "useState is the hook used to add state to functional components. It returns an array with the current state value and a setter function."
+        },
+        {
+          "question": "What does the useEffect hook do?",
+          "options": ["Manages component state", "Handles side effects", "Creates context", "Optimizes performance"],
+          "correct": 1,
+          "explanation": "useEffect handles side effects in functional components, such as data fetching, subscriptions, or manually changing the DOM."
+        },
+        {
+          "question": "How do you pass data from parent to child component?",
+          "options": ["Through state", "Through props", "Through context", "Through refs"],
+          "correct": 1,
+          "explanation": "Props (properties) are used to pass data from parent components to child components. They are read-only and help make components reusable."
+        }
+      ],
+      "settings": {
+        "showExplanations": true,
+        "allowRetry": true,
+        "shuffleQuestions": false
+      }
+    }
+  },
+  {
+    "title": "Database Fundamentals",
+    "slug": "database-fundamentals",
+    "description": "Learn about databases, SQL, and data management concepts essential for web development.",
+    "contentType": "text",
+    "isPublic": true,
+    "contentData": {
+      "type": "text",
+      "content": "<h2>Database Fundamentals</h2><p>Databases are essential for storing and managing data in web applications. Understanding database concepts is crucial for any web developer.</p><h3>Types of Databases</h3><h4>Relational Databases (SQL)</h4><p>Relational databases organize data into tables with rows and columns:</p><ul><li><strong>MySQL:</strong> Popular open-source database</li><li><strong>PostgreSQL:</strong> Advanced object-relational database</li><li><strong>SQLite:</strong> Lightweight file-based database</li><li><strong>Microsoft SQL Server:</strong> Enterprise database solution</li></ul><h4>NoSQL Databases</h4><p>NoSQL databases offer flexible data models:</p><ul><li><strong>MongoDB:</strong> Document-based database</li><li><strong>Redis:</strong> In-memory key-value store</li><li><strong>Cassandra:</strong> Wide-column store</li><li><strong>Neo4j:</strong> Graph database</li></ul><h3>Database Design Principles</h3><ol><li><strong>Normalization:</strong> Organize data to reduce redundancy</li><li><strong>Primary Keys:</strong> Unique identifiers for records</li><li><strong>Foreign Keys:</strong> Links between related tables</li><li><strong>Indexes:</strong> Improve query performance</li><li><strong>Constraints:</strong> Ensure data integrity</li></ol><h3>Basic SQL Operations</h3><p>SQL (Structured Query Language) is used to interact with relational databases:</p><ul><li><strong>SELECT:</strong> Retrieve data from tables</li><li><strong>INSERT:</strong> Add new records</li><li><strong>UPDATE:</strong> Modify existing records</li><li><strong>DELETE:</strong> Remove records</li><li><strong>CREATE:</strong> Create tables and databases</li></ul><h3>Database in Web Applications</h3><p>Databases integrate with web applications through:</p><ul><li><strong>ORMs:</strong> Object-Relational Mapping tools</li><li><strong>Connection Pooling:</strong> Efficient database connections</li><li><strong>Migrations:</strong> Version control for database schema</li><li><strong>Backups:</strong> Data protection and recovery</li></ul><p>Understanding these fundamentals will help you make informed decisions about data storage and retrieval in your web applications.</p>"
+    }
+  }
+]

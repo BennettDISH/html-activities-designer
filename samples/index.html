@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Activities - HTML Activities Designer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .header h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .activity-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .activity-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .activity-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .activity-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .activity-meta {
+            margin-bottom: 1.5rem;
+        }
+        .meta-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        .meta-label {
+            font-weight: 600;
+            margin-right: 0.5rem;
+            min-width: 80px;
+        }
+        .slug-code {
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffd700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+        }
+        .activity-type {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .activity-type.quiz {
+            background: rgba(76, 175, 80, 0.3);
+            border: 1px solid rgba(76, 175, 80, 0.5);
+        }
+        .activity-type.text {
+            background: rgba(33, 150, 243, 0.3);
+            border: 1px solid rgba(33, 150, 243, 0.5);
+        }
+        .activity-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        .test-button {
+            flex: 1;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 2rem;
+        }
+        .instructions h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .instructions ol {
+            color: rgba(255, 255, 255, 0.9);
+            padding-left: 1.5rem;
+        }
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffd700;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .warning-box {
+            background: rgba(255, 193, 7, 0.1);
+            border: 2px solid rgba(255, 193, 7, 0.3);
+            color: #ffc107;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Sample Activities</h1>
+            <p>Ready-to-use activities for testing your HTML Activities Designer platform</p>
+        </div>
+
+        <div class="instructions">
+            <h2>🚀 How to Use These Samples</h2>
+            <ol>
+                <li><strong>Create Activities:</strong> Use the JSON data in <code>sample-activities.json</code></li>
+                <li><strong>Copy Data:</strong> Each activity has pre-written questions and content</li>
+                <li><strong>Set Slugs:</strong> Use the exact slugs shown below (they must match)</li>
+                <li><strong>Make Public:</strong> Enable public access so they can be embedded</li>
+                <li><strong>Test:</strong> Click the test buttons below to see if they work</li>
+            </ol>
+            
+            <div class="warning-box">
+                <strong>⚠️ Important:</strong> The test files will only work after you've created the activities in your dashboard with the correct slugs and made them public.
+            </div>
+        </div>
+
+        <div class="activities-grid">
+            <!-- JavaScript Quiz -->
+            <div class="activity-card">
+                <span class="activity-icon">🚀</span>
+                <h3 class="activity-title">JavaScript Basics Quiz</h3>
+                <p class="activity-description">
+                    Test knowledge of JavaScript fundamentals including variables, functions, and control structures.
+                </p>
+                <div class="activity-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Slug:</span>
+                        <code class="slug-code">javascript-basics-quiz</code>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Type:</span>
+                        <span class="activity-type quiz">Quiz</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Questions:</span>
+                        <span>4 questions with explanations</span>
+                    </div>
+                </div>
+                <div class="activity-actions">
+                    <a href="test-javascript-quiz.html" class="test-button">Test Activity</a>
+                </div>
+            </div>
+
+            <!-- HTML Quiz -->
+            <div class="activity-card">
+                <span class="activity-icon">🏗️</span>
+                <h3 class="activity-title">HTML Fundamentals Quiz</h3>
+                <p class="activity-description">
+                    Learn the basics of HTML markup, elements, and document structure.
+                </p>
+                <div class="activity-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Slug:</span>
+                        <code class="slug-code">html-fundamentals-quiz</code>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Type:</span>
+                        <span class="activity-type quiz">Quiz</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Questions:</span>
+                        <span>4 questions about HTML basics</span>
+                    </div>
+                </div>
+                <div class="activity-actions">
+                    <a href="test-html-quiz.html" class="test-button">Test Activity</a>
+                </div>
+            </div>
+
+            <!-- CSS Quiz -->
+            <div class="activity-card">
+                <span class="activity-icon">🎨</span>
+                <h3 class="activity-title">CSS Styling Essentials</h3>
+                <p class="activity-description">
+                    Master CSS selectors, properties, and styling techniques for modern web design.
+                </p>
+                <div class="activity-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Slug:</span>
+                        <code class="slug-code">css-styling-essentials</code>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Type:</span>
+                        <span class="activity-type quiz">Quiz</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Questions:</span>
+                        <span>4 questions about CSS</span>
+                    </div>
+                </div>
+                <div class="activity-actions">
+                    <a href="test-css-quiz.html" class="test-button">Test Activity</a>
+                </div>
+            </div>
+
+            <!-- React Quiz -->
+            <div class="activity-card">
+                <span class="activity-icon">⚛️</span>
+                <h3 class="activity-title">React Development Quiz</h3>
+                <p class="activity-description">
+                    Test your knowledge of React components, hooks, and modern development patterns.
+                </p>
+                <div class="activity-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Slug:</span>
+                        <code class="slug-code">react-development-quiz</code>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Type:</span>
+                        <span class="activity-type quiz">Quiz</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Questions:</span>
+                        <span>4 questions about React</span>
+                    </div>
+                </div>
+                <div class="activity-actions">
+                    <a href="test-react-quiz.html" class="test-button">Test Activity</a>
+                </div>
+            </div>
+
+            <!-- Web Dev Introduction -->
+            <div class="activity-card">
+                <span class="activity-icon">🌐</span>
+                <h3 class="activity-title">Web Development Introduction</h3>
+                <p class="activity-description">
+                    A comprehensive introduction to web development concepts, tools, and best practices.
+                </p>
+                <div class="activity-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Slug:</span>
+                        <code class="slug-code">web-development-intro</code>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Type:</span>
+                        <span class="activity-type text">Text Content</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Content:</span>
+                        <span>Rich HTML educational content</span>
+                    </div>
+                </div>
+                <div class="activity-actions">
+                    <a href="test-web-dev-intro.html" class="test-button">Test Activity</a>
+                </div>
+            </div>
+
+            <!-- Database Fundamentals -->
+            <div class="activity-card">
+                <span class="activity-icon">🗄️</span>
+                <h3 class="activity-title">Database Fundamentals</h3>
+                <p class="activity-description">
+                    Learn about databases, SQL, and data management concepts essential for web development.
+                </p>
+                <div class="activity-meta">
+                    <div class="meta-item">
+                        <span class="meta-label">Slug:</span>
+                        <code class="slug-code">database-fundamentals</code>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Type:</span>
+                        <span class="activity-type text">Text Content</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Content:</span>
+                        <span>SQL, NoSQL, database design</span>
+                    </div>
+                </div>
+                <div class="activity-actions">
+                    <a href="test-database-content.html" class="test-button">Test Activity</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>📝 Quick Start Guide</h2>
+            <p>To get started with these sample activities:</p>
+            
+            <div class="code-block">1. Copy the JSON data from sample-activities.json
+2. Create activities in your dashboard with the exact slugs shown
+3. Make them public so they can be embedded
+4. Test using the buttons above</div>
+            
+            <p>Each test file shows you exactly how to embed that activity in external websites!</p>
+        </div>
+    </div>
+</body>
+</html>
