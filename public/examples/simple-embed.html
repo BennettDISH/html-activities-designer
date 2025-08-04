@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Activity Embedding Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .example-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+        }
+        .example-title {
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .code-block {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        .activity-container {
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .note strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>HTML Activities Designer - Embedding Examples</h1>
+        <p>This page demonstrates different ways to embed activities from HTML Activities Designer into your website.</p>
+        
+        <div class="note">
+            <strong>Note:</strong> These examples assume you have created public activities in your HTML Activities Designer dashboard. 
+            Replace "sample-quiz" with your actual activity slug.
+        </div>
+
+        <!-- Method 1: Using the JavaScript SDK -->
+        <div class="example-section">
+            <h2 class="example-title">Method 1: JavaScript SDK (Recommended)</h2>
+            <p>The easiest way to embed activities. The SDK handles everything automatically.</p>
+            
+            <div class="code-block">
+&lt;!-- Include the SDK --&gt;
+&lt;script src="https://your-domain.railway.app/sdk/activities.js"&gt;&lt;/script&gt;
+
+&lt;!-- Create a container for your activity --&gt;
+&lt;div id="my-activity"&gt;&lt;/div&gt;
+
+&lt;!-- Render the activity --&gt;
+&lt;script&gt;
+  HTMLActivities.render('sample-quiz', 'my-activity');
+&lt;/script&gt;
+            </div>
+
+            <h3>Live Example:</h3>
+            <div class="activity-container">
+                <div id="sdk-example" style="min-height: 200px; display: flex; align-items: center; justify-content: center; color: #666;">
+                    <p>Activity would load here (requires a real activity slug)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 2: Auto-initialization with data attributes -->
+        <div class="example-section">
+            <h2 class="example-title">Method 2: Auto-initialization</h2>
+            <p>Even easier! Just add data attributes and the SDK will automatically initialize.</p>
+            
+            <div class="code-block">
+&lt;!-- Include the SDK --&gt;
+&lt;script src="https://your-domain.railway.app/sdk/activities.js"&gt;&lt;/script&gt;
+
+&lt;!-- Activity will auto-load on page load --&gt;
+&lt;div data-html-activity="sample-quiz"&gt;&lt;/div&gt;
+            </div>
+
+            <h3>Live Example:</h3>
+            <div class="activity-container">
+                <div data-html-activity="sample-quiz" style="min-height: 200px; display: flex; align-items: center; justify-content: center; color: #666;">
+                    <p>Activity would auto-load here (requires a real activity slug)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Method 3: iframe embedding -->
+        <div class="example-section">
+            <h2 class="example-title">Method 3: iframe Embedding</h2>
+            <p>Safe for external sites and provides complete isolation.</p>
+            
+            <div class="code-block">
+&lt;!-- Include the SDK --&gt;
+&lt;script src="https://your-domain.railway.app/sdk/activities.js"&gt;&lt;/script&gt;
+
+&lt;!-- Container --&gt;
+&lt;div id="iframe-activity"&gt;&lt;/div&gt;
+
+&lt;!-- Render as iframe --&gt;
+&lt;script&gt;
+  HTMLActivities.renderIframe('sample-quiz', 'iframe-activity', {
+    width: '100%',
+    height: '600px'
+  });
+&lt;/script&gt;
+            </div>
+
+            <p><strong>Or use data attributes:</strong></p>
+            <div class="code-block">
+&lt;div data-html-activity="sample-quiz" 
+     data-mode="iframe" 
+     data-width="100%" 
+     data-height="600px"&gt;&lt;/div&gt;
+            </div>
+        </div>
+
+        <!-- Method 4: Direct iframe -->
+        <div class="example-section">
+            <h2 class="example-title">Method 4: Direct iframe (No JavaScript)</h2>
+            <p>If you can't use JavaScript, you can embed activities directly with an iframe.</p>
+            
+            <div class="code-block">
+&lt;iframe src="https://your-domain.railway.app/api/embed/sample-quiz/render" 
+        width="100%" 
+        height="600px" 
+        frameborder="0"
+        style="border-radius: 8px;"&gt;
+&lt;/iframe&gt;
+            </div>
+
+            <h3>Live Example:</h3>
+            <div class="activity-container">
+                <iframe src="/api/embed/sample-quiz/render" 
+                        width="100%" 
+                        height="400px" 
+                        frameborder="0"
+                        style="border-radius: 8px; background: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                    <p>Your browser doesn't support iframes. <a href="/api/embed/sample-quiz/render">View the activity directly</a>.</p>
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Configuration Options -->
+        <div class="example-section">
+            <h2 class="example-title">Configuration Options</h2>
+            <p>You can configure the SDK for different environments:</p>
+            
+            <div class="code-block">
+&lt;script&gt;
+  // Configure for a different API base URL
+  HTMLActivities.config({
+    apiBase: 'https://your-custom-domain.com'
+  });
+  
+  // Then render activities as normal
+  HTMLActivities.render('sample-quiz', 'my-container');
+&lt;/script&gt;
+            </div>
+        </div>
+
+        <!-- Styling -->
+        <div class="example-section">
+            <h2 class="example-title">Custom Styling</h2>
+            <p>Activities come with default styling, but you can override it:</p>
+            
+            <div class="code-block">
+&lt;style&gt;
+  .html-activity-container {
+    /* Override default styles */
+    font-family: 'Your Custom Font', sans-serif;
+    max-width: 600px;
+  }
+  
+  .html-activity-container .question {
+    /* Customize question appearance */
+    background: #your-brand-color;
+    border-radius: 15px;
+  }
+  
+  .html-activity-container .btn {
+    /* Customize buttons */
+    background: #your-button-color;
+  }
+&lt;/style&gt;
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the actual SDK -->
+    <script src="/sdk/activities.js"></script>
+    
+    <!-- Try to render a demo activity (will fail gracefully if no activity exists) -->
+    <script>
+        // This will fail gracefully if the activity doesn't exist
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('HTML Activities Designer SDK loaded');
+            
+            // Example of error handling
+            HTMLActivities.render('demo-quiz', 'sdk-example').catch(function(error) {
+                document.getElementById('sdk-example').innerHTML = 
+                    '<p style="color: #dc3545; text-align: center; padding: 20px;">Demo activity not found. Create an activity with slug "demo-quiz" to see this work!</p>';
+            });
+        });
+    </script>
+</body>
+</html>

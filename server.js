@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import { initializeDatabase } from './database/init.js';
 import authRoutes from './routes/auth.js';
 import activityRoutes from './routes/activities.js';
+import embedRoutes from './routes/embed.js';
 
 dotenv.config();
 
@@ -35,6 +36,14 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // API routes
 app.use('/api/auth', authRoutes);
 app.use('/api/activities', activityRoutes);
+app.use('/api/embed', embedRoutes);
+
+// SDK routes
+app.get('/sdk/activities.js', (req, res) => {
+  res.setHeader('Content-Type', 'application/javascript');
+  res.setHeader('Cache-Control', 'public, max-age=3600'); // Cache for 1 hour
+  res.sendFile(path.join(__dirname, 'public', 'sdk', 'activities.js'));
+});
 
 app.get('/api/health', async (req, res) => {
   try {

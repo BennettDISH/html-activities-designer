@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>External Site Example - Learning Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .nav a:hover {
+            opacity: 0.8;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .course-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .course-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .course-description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .course-meta {
+            display: flex;
+            gap: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .lesson-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+        
+        .lesson-header {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .lesson-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .lesson-description {
+            color: #666;
+        }
+        
+        .lesson-content {
+            padding: 2rem;
+        }
+        
+        .activity-section {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .activity-placeholder {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .embed-instructions {
+            background: #e7f3ff;
+            border: 1px solid #b8daff;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .code-snippet {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            margin: 1rem 0;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #28a745, #20c997);
+            height: 100%;
+            width: 25%;
+            transition: width 0.3s ease;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .sidebar h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .sidebar a {
+            color: #495057;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .sidebar a:hover {
+            color: #007bff;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">LearnCorp LMS</div>
+            <nav class="nav">
+                <a href="#">Dashboard</a>
+                <a href="#">Courses</a>
+                <a href="#">Progress</a>
+                <a href="#">Profile</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Course Header -->
+        <div class="course-header">
+            <h1 class="course-title">Introduction to Web Development</h1>
+            <p class="course-description">
+                Learn the fundamentals of web development including HTML, CSS, and JavaScript. 
+                This comprehensive course will take you from beginner to building your first website.
+            </p>
+            <div class="course-meta">
+                <span><strong>Duration:</strong> 8 weeks</span>
+                <span><strong>Level:</strong> Beginner</span>
+                <span><strong>Students:</strong> 1,247</span>
+                <span><strong>Rating:</strong> 4.8/5</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <p><strong>Progress:</strong> 25% Complete</p>
+        </div>
+
+        <div class="main-content">
+            <div class="content">
+                <!-- Lesson 1 -->
+                <div class="lesson-section">
+                    <div class="lesson-header">
+                        <h2 class="lesson-title">Lesson 1: HTML Fundamentals</h2>
+                        <p class="lesson-description">
+                            Learn the basic structure of HTML documents and common elements.
+                        </p>
+                    </div>
+                    <div class="lesson-content">
+                        <p>
+                            HTML (HyperText Markup Language) is the standard markup language for creating web pages. 
+                            It describes the structure and content of a webpage using elements and tags.
+                        </p>
+                        
+                        <h3>Key Concepts:</h3>
+                        <ul>
+                            <li>Document structure</li>
+                            <li>HTML elements and tags</li>
+                            <li>Attributes and values</li>
+                            <li>Semantic markup</li>
+                        </ul>
+
+                        <!-- Embedded Activity Section -->
+                        <div class="activity-section">
+                            <h3>📝 Interactive Quiz: HTML Basics</h3>
+                            <p class="activity-placeholder">
+                                This is where your HTML Activities Designer quiz would be embedded.
+                            </p>
+                            
+                            <div class="embed-instructions">
+                                <strong>For course administrators:</strong> To embed an activity here, replace this placeholder with:
+                            </div>
+                            
+                            <div class="code-snippet">&lt;!-- Include HTML Activities Designer SDK --&gt;
+&lt;script src="https://your-domain.railway.app/sdk/activities.js"&gt;&lt;/script&gt;
+
+&lt;!-- Activity will load automatically --&gt;
+&lt;div data-html-activity="html-basics-quiz"&gt;&lt;/div&gt;</div>
+
+                            <!-- Actual embedded activity would go here -->
+                            <div id="html-quiz-embed" style="min-height: 300px; background: white; border-radius: 8px; padding: 20px;">
+                                <div style="text-align: center; color: #666; padding: 50px 20px;">
+                                    <p>🔄 Activity Loading...</p>
+                                    <p style="font-size: 0.9rem; margin-top: 10px;">
+                                        Create an activity with slug "html-basics-quiz" to see it here!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p>
+                            After completing the quiz above, you'll have a solid understanding of HTML fundamentals. 
+                            In the next lesson, we'll explore CSS styling.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Lesson 2 -->
+                <div class="lesson-section">
+                    <div class="lesson-header">
+                        <h2 class="lesson-title">Lesson 2: CSS Styling</h2>
+                        <p class="lesson-description">
+                            Learn how to style your HTML with Cascading Style Sheets.
+                        </p>
+                    </div>
+                    <div class="lesson-content">
+                        <p>
+                            CSS (Cascading Style Sheets) is used to describe the presentation of a document written in HTML. 
+                            It controls colors, fonts, layouts, and animations.
+                        </p>
+
+                        <!-- Another embedded activity -->
+                        <div class="activity-section">
+                            <h3>🎨 Interactive Activity: CSS Selectors</h3>
+                            
+                            <!-- This would be another embedded activity -->
+                            <div data-html-activity="css-selectors-practice" style="min-height: 400px; background: white; border-radius: 8px; padding: 20px;">
+                                <div style="text-align: center; color: #666; padding: 80px 20px;">
+                                    <p>🎯 CSS Selectors Practice</p>
+                                    <p style="font-size: 0.9rem; margin-top: 10px;">
+                                        This interactive activity would help students practice CSS selectors
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lesson 3 -->
+                <div class="lesson-section">
+                    <div class="lesson-header">
+                        <h2 class="lesson-title">Lesson 3: JavaScript Basics</h2>
+                        <p class="lesson-description">
+                            Add interactivity to your websites with JavaScript.
+                        </p>
+                    </div>
+                    <div class="lesson-content">
+                        <p>Coming soon...</p>
+                        
+                        <div class="activity-section">
+                            <h3>⚡ Interactive Coding Challenge</h3>
+                            <div style="text-align: center; color: #999; padding: 60px 20px;">
+                                <p>🚀 JavaScript coding challenges coming soon!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>Course Navigation</h3>
+                <ul>
+                    <li><a href="#lesson1">✅ Lesson 1: HTML Fundamentals</a></li>
+                    <li><a href="#lesson2">🔄 Lesson 2: CSS Styling</a></li>
+                    <li><a href="#lesson3">⏳ Lesson 3: JavaScript Basics</a></li>
+                    <li><a href="#lesson4">⏳ Lesson 4: Responsive Design</a></li>
+                    <li><a href="#lesson5">⏳ Lesson 5: Final Project</a></li>
+                </ul>
+
+                <h3 style="margin-top: 2rem;">Resources</h3>
+                <ul>
+                    <li><a href="#">📄 Course Materials</a></li>
+                    <li><a href="#">🎥 Video Lectures</a></li>
+                    <li><a href="#">💬 Discussion Forum</a></li>
+                    <li><a href="#">❓ Get Help</a></li>
+                </ul>
+
+                <h3 style="margin-top: 2rem;">Progress</h3>
+                <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-top: 0.5rem;">
+                    <p><strong>Quiz Scores:</strong></p>
+                    <p>HTML Basics: 85%</p>
+                    <p>CSS Selectors: Not taken</p>
+                    <p><strong>Overall:</strong> 25%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include HTML Activities Designer SDK -->
+    <script src="/sdk/activities.js"></script>
+    
+    <script>
+        // Example of how activities would be embedded in a real LMS
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('LMS page loaded with HTML Activities Designer SDK');
+            
+            // Try to load activities (will fail gracefully if they don't exist)
+            try {
+                // This would load the HTML basics quiz
+                HTMLActivities.render('html-basics-quiz', 'html-quiz-embed');
+            } catch (error) {
+                console.log('HTML basics quiz not found');
+            }
+            
+            // Auto-embedded activities will load automatically due to data-html-activity attributes
+        });
+
+        // Simulate progress tracking
+        setTimeout(function() {
+            document.querySelector('.progress-fill').style.width = '40%';
+        }, 2000);
+    </script>
+</body>
+</html>
