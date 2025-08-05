@@ -15,23 +15,11 @@ function ActivityBuilder() {
     title: '',
     description: '',
     slug: '',
-    contentType: 'quiz',
+    contentType: 'text',
     isPublic: false,
     contentData: {
-      type: 'quiz',
-      questions: [
-        {
-          question: 'Sample question?',
-          options: ['Option A', 'Option B', 'Option C', 'Option D'],
-          correct: 0,
-          explanation: 'This is why the answer is correct.'
-        }
-      ],
-      settings: {
-        showExplanations: true,
-        allowRetry: true,
-        shuffleQuestions: false
-      }
+      type: 'text',
+      content: '<h2>Your Content Title</h2>\n<p>Add your HTML content here...</p>'
     }
   })
 
@@ -61,7 +49,7 @@ function ActivityBuilder() {
         title: activity.title,
         description: activity.description || '',
         slug: activity.slug,
-        contentType: activity.content_type,
+        contentType: 'text',
         isPublic: activity.is_public,
         contentData: activity.content_data
       })
@@ -77,33 +65,6 @@ function ActivityBuilder() {
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
-    }))
-  }
-
-  const handleContentTypeChange = (e) => {
-    const newType = e.target.value
-    setFormData(prev => ({
-      ...prev,
-      contentType: newType,
-      contentData: newType === 'quiz' ? {
-        type: 'quiz',
-        questions: [
-          {
-            question: 'Sample question?',
-            options: ['Option A', 'Option B', 'Option C', 'Option D'],
-            correct: 0,
-            explanation: 'This is why the answer is correct.'
-          }
-        ],
-        settings: {
-          showExplanations: true,
-          allowRetry: true,
-          shuffleQuestions: false
-        }
-      } : {
-        type: 'text',
-        content: '<h2>Your Content Title</h2>\n<p>Add your educational content here...</p>'
-      }
     }))
   }
 
@@ -127,59 +88,6 @@ function ActivityBuilder() {
     setFormData(prev => ({ ...prev, slug }))
   }
 
-  const handleQuestionChange = (questionIndex, field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      contentData: {
-        ...prev.contentData,
-        questions: prev.contentData.questions.map((q, i) =>
-          i === questionIndex ? { ...q, [field]: value } : q
-        )
-      }
-    }))
-  }
-
-  const handleOptionChange = (questionIndex, optionIndex, value) => {
-    setFormData(prev => ({
-      ...prev,
-      contentData: {
-        ...prev.contentData,
-        questions: prev.contentData.questions.map((q, i) =>
-          i === questionIndex 
-            ? { ...q, options: q.options.map((opt, oi) => oi === optionIndex ? value : opt) }
-            : q
-        )
-      }
-    }))
-  }
-
-  const addQuestion = () => {
-    setFormData(prev => ({
-      ...prev,
-      contentData: {
-        ...prev.contentData,
-        questions: [
-          ...prev.contentData.questions,
-          {
-            question: 'New question?',
-            options: ['Option A', 'Option B', 'Option C', 'Option D'],
-            correct: 0,
-            explanation: ''
-          }
-        ]
-      }
-    }))
-  }
-
-  const removeQuestion = (index) => {
-    setFormData(prev => ({
-      ...prev,
-      contentData: {
-        ...prev.contentData,
-        questions: prev.contentData.questions.filter((_, i) => i !== index)
-      }
-    }))
-  }
 
   const handleSave = async () => {
     if (!formData.title || !formData.slug) {
@@ -187,13 +95,8 @@ function ActivityBuilder() {
       return
     }
 
-    if (formData.contentType === 'quiz' && formData.contentData.questions.length === 0) {
-      setError('At least one quiz question is required')
-      return
-    }
-
-    if (formData.contentType === 'text' && !formData.contentData.content?.trim()) {
-      setError('Text content is required')
+    if (!formData.contentData.content?.trim()) {
+      setError('Content is required')
       return
     }
 
@@ -298,20 +201,6 @@ function ActivityBuilder() {
               <small>This will be the URL for embedding: /api/embed/{formData.slug}</small>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="contentType">Content Type *</label>
-              <select
-                id="contentType"
-                name="contentType"
-                value={formData.contentType}
-                onChange={handleContentTypeChange}
-                required
-              >
-                <option value="quiz">Quiz (Questions & Answers)</option>
-                <option value="text">Text Content (Educational)</option>
-              </select>
-            </div>
-
             <div className="form-group checkbox-group">
               <label>
                 <input
@@ -320,123 +209,54 @@ function ActivityBuilder() {
                   checked={formData.isPublic}
                   onChange={handleInputChange}
                 />
-                Make this activity public
+                Make this activity public (required for embedding)
               </label>
             </div>
           </div>
 
-          {formData.contentType === 'quiz' ? (
-            <div className="form-section">
-              <h2>Quiz Questions</h2>
+          <div className="form-section">
+            <h2>HTML Content</h2>
             
-            {formData.contentData.questions.map((question, qIndex) => (
-              <div key={qIndex} className="question-editor">
-                <div className="question-header">
-                  <h3>Question {qIndex + 1}</h3>
-                  {formData.contentData.questions.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() => removeQuestion(qIndex)}
-                      className="remove-question"
-                    >
-                      Remove
-                    </button>
-                  )}
-                </div>
-
-                <div className="form-group">
-                  <label>Question Text</label>
-                  <input
-                    type="text"
-                    value={question.question}
-                    onChange={(e) => handleQuestionChange(qIndex, 'question', e.target.value)}
-                    placeholder="Enter your question"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>Answer Options</label>
-                  {question.options.map((option, oIndex) => (
-                    <div key={oIndex} className="option-editor">
-                      <input
-                        type="text"
-                        value={option}
-                        onChange={(e) => handleOptionChange(qIndex, oIndex, e.target.value)}
-                        placeholder={`Option ${String.fromCharCode(65 + oIndex)}`}
-                      />
-                      <label className="correct-option">
-                        <input
-                          type="radio"
-                          name={`correct-${qIndex}`}
-                          checked={question.correct === oIndex}
-                          onChange={() => handleQuestionChange(qIndex, 'correct', oIndex)}
-                        />
-                        Correct
-                      </label>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="form-group">
-                  <label>Explanation (optional)</label>
-                  <textarea
-                    value={question.explanation}
-                    onChange={(e) => handleQuestionChange(qIndex, 'explanation', e.target.value)}
-                    placeholder="Explain why this answer is correct"
-                    rows="2"
-                  />
-                </div>
-              </div>
-            ))}
-
-              <button type="button" onClick={addQuestion} className="add-question">
-                + Add Question
-              </button>
+            <div className="form-group">
+              <label htmlFor="textContent">Content *</label>
+              <textarea
+                id="textContent"
+                value={formData.contentData.content || ''}
+                onChange={handleTextContentChange}
+                placeholder="Enter your HTML content here..."
+                rows="15"
+                style={{
+                  fontFamily: 'Courier New, monospace',
+                  fontSize: '14px',
+                  lineHeight: '1.4'
+                }}
+                required
+              />
+              <small>You can use HTML tags for formatting: &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;strong&gt;, etc.</small>
             </div>
-          ) : (
-            <div className="form-section">
-              <h2>Text Content</h2>
-              
-              <div className="form-group">
-                <label htmlFor="textContent">HTML Content</label>
-                <textarea
-                  id="textContent"
-                  value={formData.contentData.content || ''}
-                  onChange={handleTextContentChange}
-                  placeholder="Enter your HTML content here..."
-                  rows="15"
-                  style={{
-                    fontFamily: 'Courier New, monospace',
-                    fontSize: '14px',
-                    lineHeight: '1.4'
-                  }}
-                />
-                <small>You can use HTML tags for formatting: &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;strong&gt;, etc.</small>
-              </div>
 
-              <div className="content-preview" style={{
-                border: '1px solid #ddd',
-                borderRadius: '8px',
-                padding: '20px',
-                marginTop: '20px',
-                backgroundColor: '#f9f9f9'
-              }}>
-                <h3>Content Preview:</h3>
-                <div 
-                  dangerouslySetInnerHTML={{ 
-                    __html: formData.contentData.content || '<p>Your content preview will appear here...</p>' 
-                  }}
-                  style={{
-                    border: '1px solid #eee',
-                    borderRadius: '4px',
-                    padding: '15px',
-                    backgroundColor: 'white',
-                    minHeight: '200px'
-                  }}
-                />
-              </div>
+            <div className="content-preview" style={{
+              border: '1px solid #ddd',
+              borderRadius: '8px',
+              padding: '20px',
+              marginTop: '20px',
+              backgroundColor: '#f9f9f9'
+            }}>
+              <h3>Content Preview:</h3>
+              <div 
+                dangerouslySetInnerHTML={{ 
+                  __html: formData.contentData.content || '<p>Your content preview will appear here...</p>' 
+                }}
+                style={{
+                  border: '1px solid #eee',
+                  borderRadius: '4px',
+                  padding: '15px',
+                  backgroundColor: 'white',
+                  minHeight: '200px'
+                }}
+              />
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
