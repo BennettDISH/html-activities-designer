@@ -80,6 +80,43 @@ function ActivityBuilder() {
     }))
   }
 
+  const handleContentTypeChange = (e) => {
+    const newType = e.target.value
+    setFormData(prev => ({
+      ...prev,
+      contentType: newType,
+      contentData: newType === 'quiz' ? {
+        type: 'quiz',
+        questions: [
+          {
+            question: 'Sample question?',
+            options: ['Option A', 'Option B', 'Option C', 'Option D'],
+            correct: 0,
+            explanation: 'This is why the answer is correct.'
+          }
+        ],
+        settings: {
+          showExplanations: true,
+          allowRetry: true,
+          shuffleQuestions: false
+        }
+      } : {
+        type: 'text',
+        content: '<h2>Your Content Title</h2>\n<p>Add your educational content here...</p>'
+      }
+    }))
+  }
+
+  const handleTextContentChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      contentData: {
+        ...prev.contentData,
+        content: e.target.value
+      }
+    }))
+  }
+
   const handleSlugChange = (e) => {
     let slug = e.target.value
       .toLowerCase()
@@ -147,6 +184,16 @@ function ActivityBuilder() {
   const handleSave = async () => {
     if (!formData.title || !formData.slug) {
       setError('Title and slug are required')
+      return
+    }
+
+    if (formData.contentType === 'quiz' && formData.contentData.questions.length === 0) {
+      setError('At least one quiz question is required')
+      return
+    }
+
+    if (formData.contentType === 'text' && !formData.contentData.content?.trim()) {
+      setError('Text content is required')
       return
     }
 
@@ -251,6 +298,20 @@ function ActivityBuilder() {
               <small>This will be the URL for embedding: /api/embed/{formData.slug}</small>
             </div>
 
+            <div className="form-group">
+              <label htmlFor="contentType">Content Type *</label>
+              <select
+                id="contentType"
+                name="contentType"
+                value={formData.contentType}
+                onChange={handleContentTypeChange}
+                required
+              >
+                <option value="quiz">Quiz (Questions & Answers)</option>
+                <option value="text">Text Content (Educational)</option>
+              </select>
+            </div>
+
             <div className="form-group checkbox-group">
               <label>
                 <input
@@ -264,8 +325,9 @@ function ActivityBuilder() {
             </div>
           </div>
 
-          <div className="form-section">
-            <h2>Quiz Questions</h2>
+          {formData.contentType === 'quiz' ? (
+            <div className="form-section">
+              <h2>Quiz Questions</h2>
             
             {formData.contentData.questions.map((question, qIndex) => (
               <div key={qIndex} className="question-editor">
@@ -327,10 +389,54 @@ function ActivityBuilder() {
               </div>
             ))}
 
-            <button type="button" onClick={addQuestion} className="add-question">
-              + Add Question
-            </button>
-          </div>
+              <button type="button" onClick={addQuestion} className="add-question">
+                + Add Question
+              </button>
+            </div>
+          ) : (
+            <div className="form-section">
+              <h2>Text Content</h2>
+              
+              <div className="form-group">
+                <label htmlFor="textContent">HTML Content</label>
+                <textarea
+                  id="textContent"
+                  value={formData.contentData.content || ''}
+                  onChange={handleTextContentChange}
+                  placeholder="Enter your HTML content here..."
+                  rows="15"
+                  style={{
+                    fontFamily: 'Courier New, monospace',
+                    fontSize: '14px',
+                    lineHeight: '1.4'
+                  }}
+                />
+                <small>You can use HTML tags for formatting: &lt;h2&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;strong&gt;, etc.</small>
+              </div>
+
+              <div className="content-preview" style={{
+                border: '1px solid #ddd',
+                borderRadius: '8px',
+                padding: '20px',
+                marginTop: '20px',
+                backgroundColor: '#f9f9f9'
+              }}>
+                <h3>Content Preview:</h3>
+                <div 
+                  dangerouslySetInnerHTML={{ 
+                    __html: formData.contentData.content || '<p>Your content preview will appear here...</p>' 
+                  }}
+                  style={{
+                    border: '1px solid #eee',
+                    borderRadius: '4px',
+                    padding: '15px',
+                    backgroundColor: 'white',
+                    minHeight: '200px'
+                  }}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
