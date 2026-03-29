@@ -70,6 +70,21 @@ export function AuthProvider({ children }) {
     setError(null)
   }
 
+  const ssoLogin = async (code) => {
+    try {
+      setError(null)
+      setLoading(true)
+      const data = await authService.ssoLogin(code)
+      setUser(data.user)
+      return data
+    } catch (error) {
+      setError(error.message)
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const updateProfile = async (profileData) => {
     try {
       setError(null)
@@ -87,6 +102,7 @@ export function AuthProvider({ children }) {
     login,
     register,
     logout,
+    ssoLogin,
     updateProfile,
     loading,
     error,

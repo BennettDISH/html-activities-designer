@@ -88,6 +88,31 @@ function Login() {
             </button>
           </form>
 
+          {import.meta.env.VITE_AUTH_SERVICE_URL && (
+            <div className="sso-divider">
+              <span>or</span>
+            </div>
+          )}
+
+          {import.meta.env.VITE_AUTH_SERVICE_URL && (
+            <button
+              type="button"
+              className="sso-button"
+              onClick={() => {
+                const state = crypto.randomUUID();
+                sessionStorage.setItem('sso_state', state);
+                const params = new URLSearchParams({
+                  client_id: import.meta.env.VITE_SSO_CLIENT_ID,
+                  redirect_uri: `${window.location.origin}/auth/callback`,
+                  state
+                });
+                window.location.href = `${import.meta.env.VITE_AUTH_SERVICE_URL}/oauth/authorize?${params}`;
+              }}
+            >
+              Sign in with bennettdishman.com
+            </button>
+          )}
+
           <div className="auth-footer">
             <p>
               Don't have an account?{' '}

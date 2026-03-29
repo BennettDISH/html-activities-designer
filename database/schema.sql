@@ -47,6 +47,9 @@ INSERT INTO activity_templates (name, description, template_data, category) VALU
  'interactive')
 ON CONFLICT DO NOTHING;
 
+-- SSO integration: link to central auth service
+ALTER TABLE users ADD COLUMN IF NOT EXISTS central_user_id INTEGER UNIQUE;
+
 -- Create indexes for performance
 CREATE INDEX IF NOT EXISTS idx_activities_user_id ON activities(user_id);
 CREATE INDEX IF NOT EXISTS idx_activities_slug ON activities(slug);

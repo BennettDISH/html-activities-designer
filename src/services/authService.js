@@ -91,6 +91,25 @@ class AuthService {
     return data;
   }
 
+  async ssoLogin(code) {
+    const response = await fetch(`${API_BASE}/api/auth/sso-callback`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ code }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'SSO login failed');
+    }
+
+    this.setToken(data.token);
+    return data;
+  }
+
   logout() {
     this.setToken(null);
   }
