@@ -73,64 +73,6 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
-// One-time SSO user migration
-app.post('/api/admin/migrate-sso', async (req, res) => {
-  try {
-    const { secret } = req.body;
-    if (secret !== process.env.SSO_CLIENT_SECRET) {
-      return res.status(403).json({ error: 'Forbidden' });
-    }
-
-    const { default: pool } = await import('./config/database.js');
-
-    // Get all local users that haven't been migrated yet
-    const { rows: users } = await pool.query(
-      'SELECT id, username, email, password_hash, first_name, last_name FROM users WHERE central_user_id IS NULL'
-    );
-
-    if (users.length === 0) {
-      return res.json({ message: 'No users to migrate', count: 0 });
-    }
-
-    // Send to central auth service
-    const importRes = await fetch(`${process.env.AUTH_SERVICE_URL}/api/auth/proxy/import`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        client_id: process.env.SSO_CLIENT_ID,
-        client_secret: process.env.SSO_CLIENT_SECRET,
-        users: users.map(u => ({
-          username: u.username,
-          email: u.email,
-          password_hash: u.password_hash,
-          first_name: u.first_name,
-          last_name: u.last_name
-        }))
-      })
-    });
-
-    const data = await importRes.json();
-    if (!importRes.ok) {
-      return res.status(500).json({ error: 'Import failed', details: data });
-    }
-
-    // Update local users with central_user_id
-    for (const result of data.results) {
-      if (result.central_user_id) {
-        await pool.query(
-          'UPDATE users SET central_user_id = $1 WHERE username = $2',
-          [result.central_user_id, result.local_username]
-        );
-      }
-    }
-
-    res.json({ message: 'Migration complete', results: data.results });
-  } catch (error) {
-    console.error('Migration error:', error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
 // Serve React app for all other routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
