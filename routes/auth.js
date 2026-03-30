@@ -26,7 +26,17 @@ async function findOrCreateLocalUser(centralUser) {
   );
 
   if (existing.rows.length > 0) {
-    return existing.rows[0];
+    // Sync profile data from central on each login
+    const local = existing.rows[0];
+    if (local.email !== centralUser.email || local.username !== centralUser.username ||
+        local.first_name !== (centralUser.first_name || null) || local.last_name !== (centralUser.last_name || null)) {
+      await pool.query(
+        'UPDATE users SET username = $1, email = $2, first_name = $3, last_name = $4, updated_at = CURRENT_TIMESTAMP WHERE id = $5',
+        [centralUser.username, centralUser.email, centralUser.first_name || null, centralUser.last_name || null, local.id]
+      );
+      return { ...local, username: centralUser.username, email: centralUser.email, first_name: centralUser.first_name || null, last_name: centralUser.last_name || null };
+    }
+    return local;
   }
 
   // Check if there's a local user with matching email (pre-migration)
